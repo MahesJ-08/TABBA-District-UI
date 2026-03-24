@@ -56,7 +56,7 @@
 /* 🔹 GRID */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* ✅ Always 3 cards */
   gap: 20px;
 }
 
@@ -169,5 +169,18 @@
   .stats {
     width: 100%;
     justify-content: space-between;
+  }
+}
+/* Tablet */
+@media (max-width: 992px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .grid {
+    grid-template-columns: 1fr;
   }
 }
