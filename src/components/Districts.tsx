@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Calendar, User, Phone, Mail } from "lucide-react";
 import styles from "./Districts.module.css";
 import tabba from "../Assets/tabba.jpg";
 
