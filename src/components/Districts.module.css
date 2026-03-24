@@ -1,0 +1,122 @@
+.container {
+  padding: 20px;
+  background: #eef1f5;
+  min-height: 100vh;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* Header */
+.cardHeader {
+  position: relative;
+  height: 140px;
+  padding: 15px;
+  display: flex;
+  align-items: flex-end;
+  color: white;
+  font-weight: 600;
+}
+
+/* ✅ Image style added */
+.headerImage {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit:fill;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.blue {
+  background: linear-gradient(to bottom, #2f4db5, #0b1a4a);
+}
+
+.green {
+  background: linear-gradient(to bottom, #1e9e6f, #064e3b);
+}
+
+.red {
+  background: linear-gradient(to bottom, #e53935, #5a0b0b);
+}
+
+.initials {
+  position: absolute;
+  font-size: 100px;
+  font-weight: bold;
+  opacity: 0.15;
+  top: 10px;
+  left: 20px;
+}
+
+.districtName {
+  z-index: 1;
+  font-size: 20px;
+}
+
+/* Body */
+.cardBody {
+  padding: 20px;
+}
+
+.association {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.divider {
+  height: 1px;
+  background: #ddd;
+  margin-bottom: 15px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 25px 140px 1fr;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #444;
+}
+
+.row a {
+  color: #4f46e5;
+  text-decoration: none;
+}
+
+.row a:hover {
+  text-decoration: underline;
+}
+
+.icons {
+  flex-shrink: 0;
+  color: #6366f1;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .initials {
+    font-size: 70px;
+  }
+
+  .districtName {
+    font-size: 16px;
+  }
+
+  .row {
+    grid-template-columns: 20px 110px 1fr;
+    font-size: 13px;
+  }
+}
