@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import styles from "./Districts.module.css";
-import tabba from "../Assets/tabba.jpg";
+import tabba from "../assets/tabba.jpg";
+import {
+  MapPin,
+  Calendar,
+  User,
+  Phone,
+  Mail,
+  Search,
+} from "lucide-react";
 
 interface District {
   id: number;
@@ -10,7 +18,7 @@ interface District {
   president: string;
   phone: string;
   email: string;
-  color: string;
+  // color: string;
   image: string;
 }
 
@@ -23,7 +31,7 @@ const districts: District[] = [
     president: "Dr. Rajesh Kumar",
     phone: "+91 98765 43210",
     email: "chennai.assoc@tndistrict.in",
-    color: "blue",
+    // color: "#2563eb",
     image: tabba,
   },
   {
@@ -34,7 +42,7 @@ const districts: District[] = [
     president: "Mrs. Lakshmi Priya",
     phone: "+91 98765 43211",
     email: "coimbatore.assoc@tndistrict.in",
-    color: "green",
+    // color: "#16a34a",
     image: tabba,
   },
   {
@@ -45,122 +53,75 @@ const districts: District[] = [
     president: "Mr. Selvam Rajan",
     phone: "+91 98765 43212",
     email: "madurai.assoc@tndistrict.in",
-    color: "red",
+    // color: "#dc2626",
     image: tabba,
   },
+  
 ];
-
-const getInitials = (name: string) => {
-  return name
-    .split(" ")
-    .map((word) => word[0])
-    .join("")
-    .toUpperCase();
-};
 
 const Districts: React.FC = () => {
   const [search, setSearch] = useState("");
-  const [year, setYear] = useState("all");
 
-  const filteredDistricts = districts.filter((d) => {
-    const matchesSearch =
-      d.name.toLowerCase().includes(search.toLowerCase()) ||
-      d.associationName.toLowerCase().includes(search.toLowerCase());
+  const filteredDistricts = districts.filter((d) =>
+    d.name.toLowerCase().includes(search.toLowerCase())
+  );
 
-    const matchesYear = year === "all" || d.year.toString() === year;
-
-    return matchesSearch && matchesYear;
-  });
   return (
     <div className={styles.container}>
-      {/* 🔹 Header */}
+      {/* HEADER */}
       <div className={styles.header}>
-        <div>
-          <h1 className={styles.title}>District Registry</h1>
-          <p className={styles.subtitle}>
-            Overview of official district associations, leadership, and contact
-            networks across Tamil Nadu's 38 administrative divisions.
-          </p>
+        <div className={styles.headerText}>
+          <h1>District Registry</h1>
+          <p>Explore verified district associations across Tamil Nadu</p>
         </div>
 
-        <div className={styles.stats}>
-          <div className={styles.statCard}>
-            <h2 style={{ color: "#004D64" }}>38</h2>
-            <span>TOTAL DISTRICTS</span>
-          </div>
-
-          <div className={styles.statCard}>
-            <h2 style={{ color: "#6B3A00" }}>142</h2>
-            <span>ASSOCIATIONS</span>
-          </div>
+        <div className={styles.searchBox}>
+          <Search size={16} color="#94a3b8" />
+          <input
+            type="text"
+            placeholder="Search district..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
       </div>
 
-      {/* 🔹 Search & Filter */}
-      <div className={styles.filterBar}>
-        <input
-          type="text"
-          placeholder="Search district or association..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className={styles.searchInput}
-        />
-
-        <select
-          value={year}
-          onChange={(e) => setYear(e.target.value)}
-          className={styles.select}
-        >
-          <option value="all">All Years</option>
-          {Array.from({ length: 2026 - 1990 + 1 }, (_, i) => {
-            const y = 1990 + i;
-            return (
-              <option key={y} value={y}>
-                {y}
-              </option>
-            );
-          })}
-        </select>
-      </div>
-
-      {/* 🔹 Cards */}
+      {/* GRID */}
       <div className={styles.grid}>
-        {filteredDistricts.map((district) => (
-          <div key={district.id} className={styles.card}>
-            {/* Top Badge */}
-            <div className={styles.cardTop}>
-              <img
-                src={tabba}
-                alt={district.name}
-                className={styles.districtImage}
-              />
+        {filteredDistricts.map((d,index) => (
+          <div className={styles.card} key={d.id}>
+            {/* LOGO */}
+            <div className={styles.logoWrap}>
+              <div className={styles.logo} style={{ borderColor: `hsl(${index * 60}, 70%, 50%)` }}>
+                <img src={d.image} alt={d.name} />
+              </div>
             </div>
 
-            {/* Body */}
-            <div className={styles.cardBody}>
-              <span className={styles.label}>ASSOCIATION</span>
-              <h4 className={styles.association}>{district.associationName}</h4>
+            {/* MAIN */}
+            <div className={styles.main}>
+              <h3>{d.associationName}</h3>
 
-              <div className={styles.info}>
-                <div>
-                  <span>STARTED</span>
-                  <p>{district.year}</p>
-                </div>
+              <div className={styles.location}>
+                <MapPin size={14} /> {d.name}
+              </div>
 
+              <div className={styles.meta}>
                 <div>
-                  <span>PRESIDENT</span>
-                  <p>{district.president}</p>
+                  <Calendar size={14} /> {d.year}
                 </div>
+                <div>
+                  <User size={14} /> {d.president}
+                </div>
+              </div>
+            </div>
 
-                <div>
-                  <span>CONTACT</span>
-                  <p>{district.phone}</p>
-                </div>
-
-                <div>
-                  <span>EMAIL</span>
-                  <p>{district.email}</p>
-                </div>
+            {/* CONTACT */}
+            <div className={styles.contact}>
+              <div>
+                <Phone size={14} /> {d.phone}
+              </div>
+              <div>
+                <Mail size={14} /> {d.email}
               </div>
             </div>
           </div>
